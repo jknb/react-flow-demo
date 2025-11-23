@@ -4,17 +4,20 @@ import { Play } from 'lucide-react';
 
 const StartNode = () => {
   return (
-    <div className="px-4 py-2 shadow-md rounded-md bg-white border-2 border-green-500 min-w-[150px]">
-      <div className="flex items-center">
-        <div className="rounded-full w-8 h-8 flex items-center justify-center bg-green-100 text-green-500 mr-2">
-          <Play size={16} />
+    <div className="px-4 py-3 shadow-lg rounded-xl bg-white border-2 border-emerald-500 min-w-[150px] transition-all hover:shadow-emerald-500/20">
+      <div className="flex items-center gap-3">
+        <div className="rounded-lg w-10 h-10 flex items-center justify-center bg-emerald-100 text-emerald-600 shadow-inner">
+          <Play size={20} />
         </div>
-        <div className="text-sm font-bold text-gray-700">Start</div>
+        <div>
+          <div className="text-sm font-bold text-slate-800">Start</div>
+          <div className="text-[10px] text-slate-500 font-medium uppercase tracking-wide">Entry</div>
+        </div>
       </div>
       <Handle
         type="source"
         position={Position.Bottom}
-        className="w-3 h-3 bg-green-500"
+        className="w-3 h-3 bg-emerald-500 border-2 border-white shadow-sm"
       />
     </div>
   );

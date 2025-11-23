@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { updateNode } from '../store/workflowSlice';
+import { Settings, Info } from 'lucide-react';
 
 const PropertiesPanel = () => {
   const dispatch = useAppDispatch();
@@ -37,34 +38,55 @@ const PropertiesPanel = () => {
 
   if (!selectedNode) {
     return (
-      <div className="w-64 bg-white border-l border-gray-200 p-4">
-        <p className="text-gray-500 text-sm">Select a node to edit properties</p>
+      <div className="w-80 bg-white border-l border-slate-200 p-6 flex flex-col items-center justify-center text-center shadow-sm z-10">
+        <div className="w-12 h-12 bg-slate-50 rounded-full flex items-center justify-center mb-4">
+          <Settings className="w-6 h-6 text-slate-300" />
+        </div>
+        <p className="text-slate-500 text-sm font-medium">Select a node to edit properties</p>
       </div>
     );
   }
 
   return (
-    <div className="w-64 bg-white border-l border-gray-200 p-4 flex flex-col gap-4">
-      <h2 className="text-lg font-semibold text-gray-700">Properties</h2>
+    <div className="w-80 bg-white border-l border-slate-200 p-6 flex flex-col gap-6 shadow-sm z-10">
+      <div className="flex items-center gap-3 pb-4 border-b border-slate-100">
+        <div className="w-8 h-8 bg-indigo-50 rounded-lg flex items-center justify-center">
+          <Settings className="w-4 h-4 text-indigo-600" />
+        </div>
+        <h2 className="text-lg font-semibold text-slate-800">Properties</h2>
+      </div>
       
       <div className="flex flex-col gap-2">
-        <label className="text-sm font-medium text-gray-600">
+        <label className="text-sm font-medium text-slate-700">
           {selectedNode.type === 'service' ? 'Service Name' : 'Label'}
         </label>
         <input
           type="text"
           value={serviceName}
           onChange={handleChange}
-          className={`p-2 border rounded-md text-sm focus:outline-none focus:ring-2 ${
-            error ? 'border-red-500 focus:ring-red-200' : 'border-gray-300 focus:ring-blue-200'
+          className={`w-full px-3 py-2 bg-slate-50 border rounded-lg text-sm transition-all outline-none ${
+            error 
+              ? 'border-rose-300 focus:border-rose-500 focus:ring-2 focus:ring-rose-100' 
+              : 'border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100'
           }`}
+          placeholder="Enter name..."
         />
-        {error && <span className="text-xs text-red-500">{error}</span>}
+        {error && <span className="text-xs text-rose-500 font-medium flex items-center gap-1">
+          <Info className="w-3 h-3" /> {error}
+        </span>}
       </div>
 
-      <div className="mt-4 pt-4 border-t border-gray-200">
-        <p className="text-xs text-gray-400">ID: {selectedNode.id}</p>
-        <p className="text-xs text-gray-400">Type: {selectedNode.type}</p>
+      <div className="mt-auto pt-4 border-t border-slate-100">
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <span className="text-xs text-slate-400 uppercase tracking-wider font-medium">ID</span>
+            <p className="text-xs text-slate-600 font-mono mt-1 truncate" title={selectedNode.id}>{selectedNode.id}</p>
+          </div>
+          <div>
+            <span className="text-xs text-slate-400 uppercase tracking-wider font-medium">Type</span>
+            <p className="text-xs text-slate-600 font-mono mt-1 capitalize">{selectedNode.type}</p>
+          </div>
+        </div>
       </div>
     </div>
   );
