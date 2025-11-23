@@ -8,7 +8,7 @@ import {
   applyEdgeChanges,
   type NodeChange,
   type EdgeChange,
-} from 'reactflow';
+} from '@xyflow/react';
 
 interface WorkflowState {
   nodes: Node[];

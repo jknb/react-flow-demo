@@ -1,5 +1,6 @@
 import React, { useCallback, useRef } from 'react';
-import ReactFlow, {
+import {
+  ReactFlow,
   ReactFlowProvider,
   Controls,
   Background,
@@ -8,8 +9,8 @@ import ReactFlow, {
   useReactFlow,
   type NodeChange,
   type EdgeChange,
-} from 'reactflow';
-import 'reactflow/dist/style.css';
+} from '@xyflow/react';
+import '@xyflow/react/dist/style.css';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import {
   addNode,

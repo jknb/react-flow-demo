@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { updateNode, deleteNode } from '../store/workflowSlice';
 import { Settings, Trash2 } from 'lucide-react';
-import type { Node } from 'reactflow';
+import type { Node } from '@xyflow/react';
 
 const NodeProperties = ({ node }: { node: Node }) => {
   const dispatch = useAppDispatch();
-  const [serviceName, setServiceName] = useState(node.data.label || '');
+  const [serviceName, setServiceName] = useState((node.data.label as string) || '');
   const [error, setError] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -1,8 +1,10 @@
 import { memo } from 'react';
-import { Handle, Position, type NodeProps } from 'reactflow';
+import { Handle, Position, type Node, type NodeProps } from '@xyflow/react';
 import { GitBranch } from 'lucide-react';
 
-const DecisionNode = ({ data }: NodeProps) => {
+type DecisionNode = Node<{ label: string }, 'decision'>;
+
+const DecisionNode = ({ data }: NodeProps<DecisionNode>) => {
   return (
     <div className="px-4 py-3 shadow-lg rounded-xl bg-white border-2 border-amber-500 min-w-[180px] transition-all hover:shadow-amber-500/20">
       <Handle

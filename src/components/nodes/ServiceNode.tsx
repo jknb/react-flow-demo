@@ -1,8 +1,10 @@
 import { memo } from 'react';
-import { Handle, Position, type NodeProps } from 'reactflow';
+import { Handle, Position, type Node, type NodeProps } from '@xyflow/react';
 import { Settings } from 'lucide-react';
 
-const ServiceNode = ({ data }: NodeProps) => {
+type ServiceNode = Node<{ label: string }, 'service'>;
+
+const ServiceNode = ({ data }: NodeProps<ServiceNode>) => {
   return (
     <div className="px-4 py-3 shadow-lg rounded-xl bg-white border-2 border-indigo-500 min-w-[180px] transition-all hover:shadow-indigo-500/20">
       <Handle
