@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../store/hooks';
-import { updateNode, deleteNode } from '../store/workflowSlice';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { updateNode, deleteNode } from '../../store/workflowSlice';
 import { Settings, Trash2 } from 'lucide-react';
 import type { Node } from '@xyflow/react';
-import type { BaseNodeData } from '../types';
+import type { BaseNodeData } from '../../types';
 
 const NodeProperties = ({ node }: { node: Node }) => {
   const dispatch = useAppDispatch();

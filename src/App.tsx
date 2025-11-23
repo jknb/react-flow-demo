@@ -1,6 +1,6 @@
-import Sidebar from './components/Sidebar';
+import Sidebar from './components/canvas/Sidebar';
 import Canvas from './components/canvas/Canvas';
-import PropertiesPanel from './components/PropertiesPanel';
+import PropertiesPanel from './components/canvas/PropertiesPanel';
 import { useAppSelector } from './store/hooks';
 import { Download, Layers } from 'lucide-react';
 
