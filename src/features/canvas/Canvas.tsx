@@ -18,7 +18,9 @@ import {
   onEdgesChange,
   onConnect,
   setSelectedNodeId,
-} from '../../store/workflowSlice';
+  selectNodes,
+  selectEdges,
+} from '../../store/slices/workflow';
 
 import StartNode from './nodes/StartNode';
 import ServiceNode from './nodes/ServiceNode';
@@ -35,7 +37,8 @@ const nodeTypes = {
 const CanvasContent = () => {
   const reactFlowWrapper = useRef<HTMLDivElement>(null);
   const dispatch = useAppDispatch();
-  const { nodes, edges } = useAppSelector((state) => state.workflow);
+  const nodes = useAppSelector(selectNodes);
+  const edges = useAppSelector(selectEdges);
 
   const reactFlowInstance = useReactFlow();
 

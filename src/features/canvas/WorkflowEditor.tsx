@@ -2,10 +2,12 @@ import Sidebar from './Sidebar';
 import Canvas from './Canvas';
 import PropertiesPanel from './PropertiesPanel';
 import { useAppSelector } from '../../store/hooks';
+import { selectNodes, selectEdges } from '../../store/slices/workflow';
 import { Download, Layers } from 'lucide-react';
 
 const WorkflowEditor = () => {
-  const { nodes, edges } = useAppSelector((state) => state.workflow);
+  const nodes = useAppSelector(selectNodes);
+  const edges = useAppSelector(selectEdges);
 
   const handleExport = () => {
     const data = {

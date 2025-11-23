@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { updateNode, deleteNode } from '../../store/workflowSlice';
+import { updateNode, deleteNode, selectSelectedNode } from '../../store/slices/workflow';
 import { Settings, Trash2 } from 'lucide-react';
 import type { Node } from '@xyflow/react';
 import type { BaseNodeData } from '../../types';
@@ -97,9 +97,7 @@ const NodeProperties = ({ node }: { node: Node }) => {
 };
 
 const PropertiesPanel = () => {
-  const selectedNodeId = useAppSelector((state) => state.workflow.selectedNodeId);
-  const nodes = useAppSelector((state) => state.workflow.nodes);
-  const selectedNode = nodes.find((n) => n.id === selectedNodeId);
+  const selectedNode = useAppSelector(selectSelectedNode);
 
   if (!selectedNode) {
     return (
