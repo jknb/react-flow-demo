@@ -1,0 +1,117 @@
+import React, { useCallback, useRef } from 'react';
+import ReactFlow, {
+  ReactFlowProvider,
+  Controls,
+  Background,
+  type Connection,
+  type Node,
+  type ReactFlowInstance,
+} from 'reactflow';
+import 'reactflow/dist/style.css';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { addNode, onNodesChange, onEdgesChange, onConnect, setSelectedNodeId } from '../store/workflowSlice';
+
+import StartNode from './nodes/StartNode';
+import ServiceNode from './nodes/ServiceNode';
+import DecisionNode from './nodes/DecisionNode';
+import EndNode from './nodes/EndNode';
+
+const nodeTypes = {
+  start: StartNode,
+  service: ServiceNode,
+  decision: DecisionNode,
+  end: EndNode,
+};
+
+const CanvasContent = () => {
+  const reactFlowWrapper = useRef<HTMLDivElement>(null);
+  const dispatch = useAppDispatch();
+  const { nodes, edges } = useAppSelector((state) => state.workflow);
+  const [reactFlowInstance, setReactFlowInstance] = React.useState<ReactFlowInstance | null>(null);
+
+  const onDragOver = useCallback((event: React.DragEvent) => {
+    event.preventDefault();
+    event.dataTransfer.dropEffect = 'move';
+  }, []);
+
+  const onDrop = useCallback(
+    (event: React.DragEvent) => {
+      event.preventDefault();
+
+      const type = event.dataTransfer.getData('application/reactflow');
+
+      // check if the dropped element is valid
+      if (typeof type === 'undefined' || !type) {
+        return;
+      }
+
+      const position = reactFlowInstance?.screenToFlowPosition({
+        x: event.clientX,
+        y: event.clientY,
+      });
+
+      const newNode: Node = {
+        id: `${type}-${Date.now()}`,
+        type,
+        position: position || { x: 0, y: 0 },
+        data: { label: `${type} node` },
+      };
+
+      dispatch(addNode(newNode));
+    },
+    [reactFlowInstance, dispatch]
+  );
+
+  const handleNodesChange = useCallback(
+    (changes: any) => dispatch(onNodesChange(changes)),
+    [dispatch]
+  );
+
+  const handleEdgesChange = useCallback(
+    (changes: any) => dispatch(onEdgesChange(changes)),
+    [dispatch]
+  );
+
+  const handleConnect = useCallback(
+    (connection: Connection) => dispatch(onConnect(connection)),
+    [dispatch]
+  );
+  
+  const onNodeClick = useCallback((_event: React.MouseEvent, node: Node) => {
+      dispatch(setSelectedNodeId(node.id));
+  }, [dispatch]);
+
+  const onPaneClick = useCallback(() => {
+      dispatch(setSelectedNodeId(null));
+  }, [dispatch]);
+
+  return (
+    <div className="flex-grow h-full" ref={reactFlowWrapper}>
+      <ReactFlow
+        nodes={nodes}
+        edges={edges}
+        onNodesChange={handleNodesChange}
+        onEdgesChange={handleEdgesChange}
+        onConnect={handleConnect}
+        onInit={setReactFlowInstance}
+        onDrop={onDrop}
+        onDragOver={onDragOver}
+        onNodeClick={onNodeClick}
+        onPaneClick={onPaneClick}
+        nodeTypes={nodeTypes}
+        fitView
+      >
+        <Controls />
+        <Background />
+      </ReactFlow>
+    </div>
+  );
+};
+
+const Canvas = () => (
+  <ReactFlowProvider>
+    <CanvasContent />
+  </ReactFlowProvider>
+);
+
+export default Canvas;
