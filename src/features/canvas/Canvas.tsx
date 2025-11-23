@@ -111,7 +111,7 @@ const CanvasContent = () => {
         onNodeClick={onNodeClick}
         onPaneClick={onPaneClick}
         nodeTypes={nodeTypes}
-        fitView
+        fitViewOptions={{ padding: 0.2, maxZoom: 1 }}
       >
         <Controls className="bg-white border border-slate-200 shadow-sm rounded-lg overflow-hidden" />
         <Background color="#94a3b8" gap={20} size={1} />
