@@ -3,27 +3,31 @@ import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { updateNode, deleteNode } from '../store/workflowSlice';
 import { Settings, Trash2 } from 'lucide-react';
 import type { Node } from '@xyflow/react';
+import type { BaseNodeData } from '../types';
 
 const NodeProperties = ({ node }: { node: Node }) => {
   const dispatch = useAppDispatch();
-  const [serviceName, setServiceName] = useState((node.data.label as string) || '');
+  const data = node.data as BaseNodeData;
+  const [label, setLabel] = useState(data.label || '');
+  const [description, setDescription] = useState(data.description || '');
   const [error, setError] = useState('');
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleLabelChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setServiceName(value);
+    setLabel(value);
 
     if (value.trim() === '') {
-      setError('Service name cannot be empty');
+      setError('Label cannot be empty');
     } else {
       setError('');
-      dispatch(
-        updateNode({
-          id: node.id,
-          data: { label: value },
-        })
-      );
+      dispatch(updateNode({ id: node.id, data: { label: value } }));
     }
+  };
+
+  const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const value = e.target.value;
+    setDescription(value);
+    dispatch(updateNode({ id: node.id, data: { description: value } }));
   };
 
   const handleDelete = () => {
@@ -34,18 +38,30 @@ const NodeProperties = ({ node }: { node: Node }) => {
     <div className="space-y-6">
       <div>
         <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
-          Service Name
+          Label
         </label>
         <input
           type="text"
-          value={serviceName}
-          onChange={handleChange}
+          value={label}
+          onChange={handleLabelChange}
           className={`w-full px-3 py-2 bg-slate-50 border ${error ? 'border-rose-300 focus:border-rose-500 focus:ring-rose-200' : 'border-slate-200 focus:border-indigo-500 focus:ring-indigo-200'} rounded-lg text-sm text-slate-700 outline-none focus:ring-2 transition-all`}
-          placeholder="Enter service name"
+          placeholder="Enter node label"
         />
         {error && (
           <p className="mt-1 text-xs text-rose-500 font-medium flex items-center gap-1">{error}</p>
         )}
+      </div>
+
+      <div>
+        <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
+          Description
+        </label>
+        <textarea
+          value={description}
+          onChange={handleDescriptionChange}
+          className="w-full px-3 py-2 bg-slate-50 border border-slate-200 focus:border-indigo-500 focus:ring-indigo-200 rounded-lg text-sm text-slate-700 outline-none focus:ring-2 transition-all resize-none h-24"
+          placeholder="Enter description"
+        />
       </div>
 
       <div className="pt-4 border-t border-slate-100">
