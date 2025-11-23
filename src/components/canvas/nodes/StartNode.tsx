@@ -2,7 +2,7 @@ import { memo } from 'react';
 import { Handle, Position, type Node, type NodeProps } from '@xyflow/react';
 import { Play } from 'lucide-react';
 import NodeLayout from './NodeLayout';
-import type { BaseNodeData } from '../../types';
+import type { BaseNodeData } from '../../../types';
 
 type StartNode = Node<BaseNodeData, 'start'>;
 

@@ -11,14 +11,14 @@ import {
   type EdgeChange,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
-import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import {
   addNode,
   onNodesChange,
   onEdgesChange,
   onConnect,
   setSelectedNodeId,
-} from '../store/workflowSlice';
+} from '../../store/workflowSlice';
 
 import StartNode from './nodes/StartNode';
 import ServiceNode from './nodes/ServiceNode';
@@ -99,7 +99,7 @@ const CanvasContent = () => {
   }, [dispatch]);
 
   return (
-    <div className="flex-grow h-full" ref={reactFlowWrapper}>
+    <div className="grow h-full" ref={reactFlowWrapper}>
       <ReactFlow
         nodes={nodes}
         edges={edges}
