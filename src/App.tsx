@@ -34,7 +34,7 @@ function App() {
           Export JSON
         </button>
       </header>
-      
+
       <div className="flex flex-grow overflow-hidden">
         <Sidebar />
         <Canvas />
