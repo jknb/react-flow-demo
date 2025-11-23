@@ -5,11 +5,19 @@ import ReactFlow, {
   Background,
   type Connection,
   type Node,
-  type ReactFlowInstance,
+  useReactFlow,
+  type NodeChange,
+  type EdgeChange,
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
-import { addNode, onNodesChange, onEdgesChange, onConnect, setSelectedNodeId } from '../store/workflowSlice';
+import {
+  addNode,
+  onNodesChange,
+  onEdgesChange,
+  onConnect,
+  setSelectedNodeId,
+} from '../store/workflowSlice';
 
 import StartNode from './nodes/StartNode';
 import ServiceNode from './nodes/ServiceNode';
@@ -27,7 +35,8 @@ const CanvasContent = () => {
   const reactFlowWrapper = useRef<HTMLDivElement>(null);
   const dispatch = useAppDispatch();
   const { nodes, edges } = useAppSelector((state) => state.workflow);
-  const [reactFlowInstance, setReactFlowInstance] = React.useState<ReactFlowInstance | null>(null);
+
+  const reactFlowInstance = useReactFlow();
 
   const onDragOver = useCallback((event: React.DragEvent) => {
     event.preventDefault();
@@ -63,12 +72,12 @@ const CanvasContent = () => {
   );
 
   const handleNodesChange = useCallback(
-    (changes: any) => dispatch(onNodesChange(changes)),
+    (changes: NodeChange[]) => dispatch(onNodesChange(changes)),
     [dispatch]
   );
 
   const handleEdgesChange = useCallback(
-    (changes: any) => dispatch(onEdgesChange(changes)),
+    (changes: EdgeChange[]) => dispatch(onEdgesChange(changes)),
     [dispatch]
   );
 
@@ -76,13 +85,16 @@ const CanvasContent = () => {
     (connection: Connection) => dispatch(onConnect(connection)),
     [dispatch]
   );
-  
-  const onNodeClick = useCallback((_event: React.MouseEvent, node: Node) => {
+
+  const onNodeClick = useCallback(
+    (_event: React.MouseEvent, node: Node) => {
       dispatch(setSelectedNodeId(node.id));
-  }, [dispatch]);
+    },
+    [dispatch]
+  );
 
   const onPaneClick = useCallback(() => {
-      dispatch(setSelectedNodeId(null));
+    dispatch(setSelectedNodeId(null));
   }, [dispatch]);
 
   return (
@@ -93,7 +105,6 @@ const CanvasContent = () => {
         onNodesChange={handleNodesChange}
         onEdgesChange={handleEdgesChange}
         onConnect={handleConnect}
-        onInit={setReactFlowInstance}
         onDrop={onDrop}
         onDragOver={onDragOver}
         onNodeClick={onNodeClick}

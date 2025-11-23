@@ -20,4 +20,14 @@ export default defineConfig([
       globals: globals.browser,
     },
   },
+  {
+    // Prettier must be last to override other configs
+    files: ['**/*.{ts,tsx}'],
+    plugins: {
+      prettier: (await import('eslint-plugin-prettier')).default,
+    },
+    rules: {
+      'prettier/prettier': 'error',
+    },
+  },
 ])
