@@ -11,13 +11,15 @@ const StartNode = () => {
         </div>
         <div>
           <div className="text-sm font-bold text-slate-800">Start</div>
-          <div className="text-[10px] text-slate-500 font-medium uppercase tracking-wide">Entry</div>
+          <div className="text-[10px] text-slate-500 font-medium uppercase tracking-wide">
+            Entry
+          </div>
         </div>
       </div>
       <Handle
         type="source"
         position={Position.Bottom}
-        className="w-3 h-3 bg-emerald-500 border-2 border-white shadow-sm"
+        className="w-4 h-4 bg-emerald-500 border-2 border-white shadow-sm hover:w-5 hover:h-5 transition-all"
       />
     </div>
   );

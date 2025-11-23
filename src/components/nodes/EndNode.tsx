@@ -8,7 +8,7 @@ const EndNode = () => {
       <Handle
         type="target"
         position={Position.Top}
-        className="w-3 h-3 bg-rose-500 border-2 border-white shadow-sm"
+        className="w-4 h-4 bg-rose-500 border-2 border-white shadow-sm hover:w-5 hover:h-5 transition-all"
       />
       <div className="flex items-center gap-3">
         <div className="rounded-lg w-10 h-10 flex items-center justify-center bg-rose-100 text-rose-600 shadow-inner">

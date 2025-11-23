@@ -8,23 +8,23 @@ const ServiceNode = ({ data }: NodeProps) => {
       <Handle
         type="target"
         position={Position.Top}
-        className="w-3 h-3 bg-indigo-500 border-2 border-white shadow-sm"
+        className="w-4 h-4 bg-indigo-500 border-2 border-white shadow-sm hover:w-5 hover:h-5 transition-all"
       />
       <div className="flex items-center gap-3">
         <div className="rounded-lg w-10 h-10 flex items-center justify-center bg-indigo-100 text-indigo-600 shadow-inner">
           <Settings size={20} />
         </div>
         <div>
-          <div className="text-sm font-bold text-slate-800">
-            {data.label || 'Service'}
+          <div className="text-sm font-bold text-slate-800">{data.label || 'Service'}</div>
+          <div className="text-[10px] text-slate-500 font-medium uppercase tracking-wide">
+            Action
           </div>
-          <div className="text-[10px] text-slate-500 font-medium uppercase tracking-wide">Action</div>
         </div>
       </div>
       <Handle
         type="source"
         position={Position.Bottom}
-        className="w-3 h-3 bg-indigo-500 border-2 border-white shadow-sm"
+        className="w-4 h-4 bg-indigo-500 border-2 border-white shadow-sm hover:w-5 hover:h-5 transition-all"
       />
     </div>
   );
