@@ -1,12 +1,10 @@
 import { memo } from 'react';
-import { Handle, Position, type Node, type NodeProps } from '@xyflow/react';
+import { Handle, Position, type NodeProps } from '@xyflow/react';
 import { Settings } from 'lucide-react';
 import NodeLayout from './NodeLayout';
-import type { BaseNodeData } from '../../../types';
+import type { WorkflowNode } from '../../../types';
 
-type ServiceNode = Node<BaseNodeData, 'service'>;
-
-const ServiceNode = ({ data }: NodeProps<ServiceNode>) => {
+const ServiceNode = ({ data }: NodeProps<WorkflowNode<'service'>>) => {
   return (
     <NodeLayout
       title={data.label || 'Service'}

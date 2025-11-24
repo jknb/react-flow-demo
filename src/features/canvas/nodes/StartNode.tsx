@@ -1,12 +1,10 @@
 import { memo } from 'react';
-import { Handle, Position, type Node, type NodeProps } from '@xyflow/react';
+import { Handle, Position, type NodeProps } from '@xyflow/react';
 import { Play } from 'lucide-react';
 import NodeLayout from './NodeLayout';
-import type { BaseNodeData } from '../../../types';
+import type { WorkflowNode } from '../../../types';
 
-type StartNode = Node<BaseNodeData, 'start'>;
-
-const StartNode = ({ data }: NodeProps<StartNode>) => {
+const StartNode = ({ data }: NodeProps<WorkflowNode<'start'>>) => {
   return (
     <NodeLayout
       title={data.label || 'Start'}

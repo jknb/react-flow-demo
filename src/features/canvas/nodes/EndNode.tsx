@@ -1,12 +1,10 @@
 import { memo } from 'react';
-import { Handle, Position, type Node, type NodeProps } from '@xyflow/react';
+import { Handle, Position, type NodeProps } from '@xyflow/react';
 import { StopCircle } from 'lucide-react';
 import NodeLayout from './NodeLayout';
-import type { BaseNodeData } from '../../../types';
+import type { WorkflowNode } from '../../../types';
 
-type EndNode = Node<BaseNodeData, 'end'>;
-
-const EndNode = ({ data }: NodeProps<EndNode>) => {
+const EndNode = ({ data }: NodeProps<WorkflowNode<'end'>>) => {
   return (
     <NodeLayout
       title={data.label || 'End'}

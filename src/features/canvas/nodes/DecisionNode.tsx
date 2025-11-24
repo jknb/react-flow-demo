@@ -1,12 +1,10 @@
 import { memo } from 'react';
-import { Handle, Position, type Node, type NodeProps } from '@xyflow/react';
+import { Handle, Position, type NodeProps } from '@xyflow/react';
 import { GitBranch } from 'lucide-react';
 import NodeLayout from './NodeLayout';
-import type { BaseNodeData } from '../../../types';
+import type { WorkflowNode } from '../../../types';
 
-type DecisionNode = Node<BaseNodeData, 'decision'>;
-
-const DecisionNode = ({ data }: NodeProps<DecisionNode>) => {
+const DecisionNode = ({ data }: NodeProps<WorkflowNode<'decision'>>) => {
   return (
     <NodeLayout
       title={data.label || 'Decision'}
