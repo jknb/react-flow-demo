@@ -1,6 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import {
-  type Node,
   type Edge,
   type Connection,
   addEdge,
@@ -9,9 +8,10 @@ import {
   type NodeChange,
   type EdgeChange,
 } from '@xyflow/react';
+import type { WorkflowNode } from '../../../types';
 
 interface WorkflowState {
-  nodes: Node[];
+  nodes: WorkflowNode[];
   edges: Edge[];
   selectedNodeId: string | null;
 }
@@ -26,16 +26,19 @@ const workflowSlice = createSlice({
   name: 'workflow',
   initialState,
   reducers: {
-    addNode: (state, action: PayloadAction<Node>) => {
+    addNode: (state, action: PayloadAction<WorkflowNode>) => {
       state.nodes.push(action.payload);
     },
-    updateNode: (state, action: PayloadAction<{ id: string; data: Record<string, unknown> }>) => {
+    updateNode: (
+      state,
+      action: PayloadAction<{ id: string; data: Partial<WorkflowNode['data']> }>
+    ) => {
       const node = state.nodes.find((n) => n.id === action.payload.id);
       if (node) {
         node.data = { ...node.data, ...action.payload.data };
       }
     },
-    onNodesChange: (state, action: PayloadAction<NodeChange[]>) => {
+    onNodesChange: (state, action: PayloadAction<NodeChange<WorkflowNode>[]>) => {
       state.nodes = applyNodeChanges(action.payload, state.nodes);
     },
     onEdgesChange: (state, action: PayloadAction<EdgeChange[]>) => {
