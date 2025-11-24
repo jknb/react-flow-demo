@@ -4,6 +4,7 @@ import { updateNode, deleteNode, selectSelectedNode } from '../../store/slices/w
 import { Settings, Trash2 } from 'lucide-react';
 import type { Node } from '@xyflow/react';
 import type { BaseNodeData } from '../../types';
+import { colorStyles, getNodeColor } from './constants';
 
 const NodeProperties = ({ node }: { node: Node }) => {
   const dispatch = useAppDispatch();
@@ -110,11 +111,14 @@ const PropertiesPanel = () => {
     );
   }
 
+  const color = getNodeColor(selectedNode.type);
+  const styles = colorStyles[color];
+
   return (
     <div className="w-80 bg-white border-l border-slate-200 p-6 shadow-sm z-10 overflow-y-auto">
       <div className="flex items-center gap-3 mb-6 pb-6 border-b border-slate-100">
-        <div className="w-10 h-10 bg-indigo-50 rounded-lg flex items-center justify-center">
-          <Settings className="w-5 h-5 text-indigo-600" />
+        <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${styles.iconBg}`}>
+          <Settings className={`w-5 h-5 ${styles.iconColor}`} />
         </div>
         <div>
           <h2 className="text-lg font-bold text-slate-800">Properties</h2>

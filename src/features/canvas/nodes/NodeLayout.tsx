@@ -1,45 +1,16 @@
 import React, { memo } from 'react';
 import type { LucideIcon } from 'lucide-react';
 
+import { colorStyles, type ColorType } from '../constants';
+
 interface NodeLayoutProps {
   title: string;
   category: string;
   icon: LucideIcon;
-  color: 'indigo' | 'emerald' | 'amber' | 'rose';
+  color: ColorType;
   children?: React.ReactNode;
   handles?: React.ReactNode;
 }
-
-const colorStyles = {
-  indigo: {
-    border: 'border-indigo-500',
-    shadow: 'hover:shadow-indigo-500/20',
-    iconBg: 'bg-indigo-100',
-    iconColor: 'text-indigo-600',
-    handle: 'bg-indigo-500',
-  },
-  emerald: {
-    border: 'border-emerald-500',
-    shadow: 'hover:shadow-emerald-500/20',
-    iconBg: 'bg-emerald-100',
-    iconColor: 'text-emerald-600',
-    handle: 'bg-emerald-500',
-  },
-  amber: {
-    border: 'border-amber-500',
-    shadow: 'hover:shadow-amber-500/20',
-    iconBg: 'bg-amber-100',
-    iconColor: 'text-amber-600',
-    handle: 'bg-amber-500',
-  },
-  rose: {
-    border: 'border-rose-500',
-    shadow: 'hover:shadow-rose-500/20',
-    iconBg: 'bg-rose-100',
-    iconColor: 'text-rose-600',
-    handle: 'bg-rose-500',
-  },
-};
 
 const NodeLayout = ({ title, category, icon: Icon, color, children, handles }: NodeLayoutProps) => {
   const styles = colorStyles[color];
