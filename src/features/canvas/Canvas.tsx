@@ -11,6 +11,7 @@ import {
   type EdgeChange,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
+import type { WorkflowNode, NodeType } from '../../types';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import {
   addNode,
@@ -22,10 +23,7 @@ import {
   selectEdges,
 } from '../../store/slices/workflow';
 
-import StartNode from './nodes/StartNode';
-import ServiceNode from './nodes/ServiceNode';
-import DecisionNode from './nodes/DecisionNode';
-import EndNode from './nodes/EndNode';
+import { StartNode, ServiceNode, DecisionNode, EndNode } from './nodes';
 
 const nodeTypes = {
   start: StartNode,
@@ -51,7 +49,7 @@ const CanvasContent = () => {
     (event: React.DragEvent) => {
       event.preventDefault();
 
-      const type = event.dataTransfer.getData('application/reactflow');
+      const type = event.dataTransfer.getData('application/reactflow') as NodeType;
 
       // check if the dropped element is valid
       if (typeof type === 'undefined' || !type) {
@@ -63,7 +61,7 @@ const CanvasContent = () => {
         y: event.clientY,
       });
 
-      const newNode: Node = {
+      const newNode: WorkflowNode = {
         id: `${type}-${Date.now()}`,
         type,
         position: position || { x: 0, y: 0 },
@@ -76,7 +74,7 @@ const CanvasContent = () => {
   );
 
   const handleNodesChange = useCallback(
-    (changes: NodeChange[]) => dispatch(onNodesChange(changes)),
+    (changes: NodeChange<WorkflowNode>[]) => dispatch(onNodesChange(changes)),
     [dispatch]
   );
 
